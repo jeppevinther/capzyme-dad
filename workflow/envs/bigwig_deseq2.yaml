@@ -1,0 +1,11 @@
+channels:
+  - conda-forge
+  - bioconda
+  - nodefaults
+dependencies:
+  - python=3.12
+  - pybigwig=0.3.26
+  - samtools=1.22
+  - bedtools=2.31.1
+  - r-base=4.5
+  - bioconductor-deseq2=1.50.2

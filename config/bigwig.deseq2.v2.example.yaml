@@ -1,0 +1,18 @@
+# Standalone matrix input. Use toolbox.py, not a version-1 workflow config.
+schema_version: 2
+output_dir: new-deseq2-tracks
+input:
+  type: counts
+  matrix: counts/5ends.raw.tsv
+  assert_unthresholded: true
+references:
+  rna:
+    chrom_sizes: references/rna.sizes.tsv
+bigwig:
+  rna:
+    normalization: deseq2
+    deseq2_type: ratio
+    cohort: [A, B]       # All samples used to estimate factors, in explicit order
+    emit_samples: [A]   # Output subset does not change the estimation cohort
+    strands: plus
+# Select the environment explicitly on the command line: --rscript /path/to/Rscript

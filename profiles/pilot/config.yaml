@@ -1,0 +1,8 @@
+# Start the coordinator with nice -n 10. These are scheduling budgets, not RSS caps.
+executor: local
+cores: 4
+resources:
+  mem_mb: 16384
+default-resources:
+  mem_mb: 512
+printshellcmds: true

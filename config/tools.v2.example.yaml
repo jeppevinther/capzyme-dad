@@ -1,0 +1,17 @@
+# Implemented standalone subset. Replace paths; use with toolbox.py, not capzyme.py.
+# This example counts existing BAMs. It is not experimental metadata.
+schema_version: 2
+experiment_name: artificial_example
+samples: tool_samples.example.tsv
+output_dir: new-counts
+input:
+  type: bam
+references:
+  rna:
+    fasta: references/prepared_rna.fa
+counting:
+  minimum_mapq: 20
+  exclude_duplicates: false
+  rna_strands: both
+  minimum_total_count: 0
+# See docs/tool_settings.md for separate trimmed_fastq and counts input documents.

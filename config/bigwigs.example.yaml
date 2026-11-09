@@ -1,0 +1,27 @@
+# Optional block to merge into a schema_version: 1 workflow configuration.
+# Omit the whole block to preserve count-only behavior. Each space is independent.
+bigwigs:
+  rna:
+    methods:
+      raw: {}
+      rpm: {}  # Audit accepted BAM totals across both strands/all references.
+    strands: plus
+    mem_mb: 8192
+    # cohort: [A, B]        # Default all configured samples; order preserved.
+    # emit_samples: [A]     # Subset of cohort, independent of estimation.
+  # genome:
+  #   methods:
+  #     raw: {}
+  #     rpm: {}
+  #     deseq2:
+  #       deseq2_type: ratio  # Explicit ratio or poscounts; never falls back.
+  #       rscript: /software/r-env/bin/Rscript
+  #     controls:
+  #       deseq2_type: poscounts
+  #       controls: /data/constant_ends.tsv
+  #       min_control_features: 10
+  #     supplied:
+  #       size_factors: /data/factors.tsv
+  #       factor_kind: size-factor  # Or multiplier.
+  #       factor_metadata: /data/saved/provenance.json  # Optional context check.
+  #   strands: both

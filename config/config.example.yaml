@@ -1,0 +1,38 @@
+# Design template only; the scaffold does not consume this configuration yet.
+schema_version: 1
+samples: examples/samples.example.tsv
+paths:
+  data_root: null       # external input directory; required before implementation
+  reference_root: null  # external reference directory
+  output_root: null     # external output directory
+preprocessing:
+  adapter_r1: null      # obtain from library preparation protocol
+  adapter_r2: null
+  minimum_length: null
+  quality_cutoff: null
+  umi_policy: null      # no UMI extraction or deduplication assumed
+reference:
+  rna_fasta: null
+  genome_fasta: null
+  annotation_gtf: null
+  collapse_5prime_length: null
+  collapse_ambiguity_policy: null
+mapping:
+  mode: null           # rna, genome, parallel, or sequential; define semantics
+  rna_aligner: bowtie2
+  genome_aligner: hisat2
+  library_orientation: null
+  multimapping_policy: null
+counting:
+  five_prime_mate: null
+  minimum_mapq: null
+  soft_clip_policy: null
+  duplicate_policy: null
+  coordinate_output: bed0_half_open
+tracks:
+  normalization: RPM
+  denominator: null    # specify accepted molecules and reference space
+analysis:
+  enabled: false
+  design: null
+  contrasts: []

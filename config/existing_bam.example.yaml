@@ -1,0 +1,22 @@
+# Existing-BAM entry point: workflow/existing_bam.smk (not workflow/Snakefile).
+# Fill paths in a PRIVATE configuration outside Git. Real-data execution needs approval.
+schema_version: 1
+input_mode: existing_bam
+samples: null  # Private TSV with exactly sample_id and bam; preserve legacy headers.
+output_dir: null  # New external server output directory; never a historical input directory.
+reference:
+  fasta: null
+  fasta_sha256: null  # Optional trusted expected hash; observations recorded automatically.
+counting:
+  mapq: 20
+  strand: both
+  exclude_duplicates: false
+  min_total_count: 0
+# Optional exact historical comparison is documented in docs/existing_bam_counting.md.
+resources:
+  cores: 4
+  mem_mb: 16384
+  filter_threads: 1
+  filter_mem_mb: 1024
+  count_threads: 2
+  count_mem_mb: 8192

@@ -1,0 +1,42 @@
+{
+  "observed_date": "2026-10-29",
+  "source": "User-supplied files present in legacy_scripts at start of milestone 1",
+  "upstream_revision": null,
+  "license_status": "Owner confirmed licensing and redistribution under the project MIT license on 2026-11-09",
+  "files": [
+    {
+      "filename": "merge_by_prefix_v2.py",
+      "sha256": "cce88700a8b9d1108d4c5aa3758d7c50feeb1958fd35a1f8287edb7a2ac10336",
+      "size_bytes": 13433,
+      "preserved_unchanged": true,
+      "publication_review": "Redistribution confirmed by owner on 2026-11-09; original preserved unchanged",
+      "used_in_milestone": true
+    },
+    {
+      "filename": "count5ends_matrix_v1_3.sh",
+      "sha256": "7bd16ba82d855b1b4bfad32e9dc8795a6a8a4081d9d600d5166337ebb79303b0",
+      "size_bytes": 13918,
+      "preserved_unchanged": true,
+      "publication_review": "Redistribution confirmed by owner on 2026-11-09; original preserved unchanged",
+      "used_in_milestone": false
+    },
+    {
+      "filename": "make_tss_bigwig_v1_2.sh",
+      "sha256": "8c5c58413b6696684b7e1d3070306ccc662a36384180fbc5e061d89a5710d62d",
+      "size_bytes": 8885,
+      "preserved_unchanged": true,
+      "publication_review": "Redistribution confirmed by owner on 2026-11-09; original preserved unchanged",
+      "used_in_milestone": false
+    }
+  ],
+  "owner_confirmation": {
+    "date": "2026-11-09",
+    "scope": [
+      "merge_by_prefix_v2.py",
+      "count5ends_matrix_v1_3.sh",
+      "make_tss_bigwig_v1_2.sh"
+    ],
+    "license": "MIT",
+    "record": "docs/publication/license_review.md"
+  }
+}

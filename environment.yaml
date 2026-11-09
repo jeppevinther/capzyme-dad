@@ -1,0 +1,27 @@
+# Complete convenience environment for CapZyme source installation.
+# Use strict priority for this command, without changing global Conda settings:
+# CONDA_CHANNEL_PRIORITY=strict conda env create --file environment.yaml
+name: capzyme
+channels:
+  - conda-forge
+  - bioconda
+  - nodefaults
+dependencies:
+  - python=3.12
+  - pip>=25
+  - setuptools>=77
+  - wheel>=0.45
+  - cutadapt=4.9
+  - bowtie2=2.5.4
+  - hisat2=2.2.1
+  - samtools=1.22
+  - bedtools=2.31.1
+  - pybigwig=0.3.26
+  - numpy>=2,<3
+  - pyyaml>=6,<7
+  - snakemake-minimal=9.9.0
+  # 1.23.1 has mismatched Conda/Python packaging requirements; verified 1.23.0.
+  - snakemake-interface-common=1.23.0
+# Install CapZyme explicitly after activation:
+# python -m pip install --no-build-isolation --no-deps .
+# R/DESeq2 is optional, separate, and intentionally not installed here.

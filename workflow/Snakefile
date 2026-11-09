@@ -1,0 +1,63 @@
+"""Milestone 1: single-end RNA-reference mapping and 1-based 5′ counts."""
+from pathlib import Path
+import sys
+import shlex
+from snakemake.utils import min_version
+
+min_version("9.9.0")
+REPO = Path(workflow.basedir).parent.resolve()
+sys.path.insert(0, str(REPO / "workflow/scripts"))
+from configuration import load_settings
+
+SETTINGS = load_settings(config, REPO)
+from workflow_bigwig import plans
+TRACKS = plans(config.get('bigwigs'), SETTINGS, REPO)
+TRACK_OUTPUTS = [f for p in TRACKS.values() for f in p['files']]
+GENOME = SETTINGS['genome']
+GENOME_ONLY = False
+OUT = SETTINGS["output"]
+SAMPLES = list(SETTINGS["samples"])
+RUNNER = str(REPO / "workflow/scripts/run_step.py")
+CORE = str(REPO / "workflow/scripts/core.py")
+COLLAPSER = str(REPO / "legacy_scripts/merge_by_prefix_v2.py")
+FIXED = SETTINGS["reference_mode"] == "fixed"
+REF = SETTINGS["fixed"]["fasta"] if FIXED else OUT + "/reference/combined.fa"
+INDEX = SETTINGS["fixed"]["index_prefix"] if FIXED else OUT + "/reference/bowtie2/index"
+SETTINGS['rna_index'] = INDEX
+RNA_BAM = OUT + ('/rna/{sample}/accepted.bam' if GENOME else '/bam/{sample}.accepted.bam')
+from fixed_reference import fixed_inputs
+INDEX_FILES = (fixed_inputs(SETTINGS["fixed"])[1] if FIXED else
+               [INDEX + part + ".bt2l" for part in (".1", ".2", ".3", ".4", ".rev.1", ".rev.2")])
+SIZES = OUT + "/reference/fixed.sizes.tsv" if FIXED else REF + ".fai"
+REFERENCE_CHECK = [OUT + "/reference/fixed_verified.json"] if FIXED else []
+RAW = OUT + "/counts/5ends.raw.tsv"
+FILTERED = OUT + "/counts/5ends.min_total_" + str(SETTINGS["minimum"]) + ".tsv"
+CODE = [str(REPO/'workflow/scripts'/name) for name in (
+    'reference_hashes.py','configuration.py','genome_configuration.py','fixed_reference.py','core.py',
+    'bam_count.py','compare_matrices.py','genome_common.py',
+    'rna_handoff.py','sequential.py','bowtie2_genome.py','hisat2_genome.py')]
+
+wildcard_constraints:
+    sample="[A-Za-z0-9][A-Za-z0-9_.-]*"
+
+rule all:
+    input:
+        RAW, TRACK_OUTPUTS,
+        ([FILTERED] if SETTINGS["minimum"] > 0 else []),
+        OUT + "/provenance/run.json",
+        ([OUT + '/counts/genome.5ends.raw.tsv', OUT + '/provenance/genome.json'] +
+         expand(OUT + '/qc/{sample}.sequential.json', sample=SAMPLES) if GENOME else [])
+
+if FIXED:
+    include: "rules/fixed_references.smk"
+else:
+    include: "rules/references.smk"
+include: "rules/preprocessing.smk"
+include: "rules/mapping.smk"
+include: "rules/counting.smk"
+if GENOME:
+    include: 'rules/genome.smk'
+
+# Future-stage files remain preserved but are not included in this milestone.
+
+include: 'rules/tracks.smk'

@@ -1,0 +1,3 @@
+sample_id	fastq
+example_A	external_reads/example_A.fastq.gz
+example_B	external_reads/example_B.fastq.gz

@@ -1,0 +1,14 @@
+# CLI argument bindings, not an implemented --config or Snakemake interface.
+tool: bowtie2_genome.py
+operation: map
+fastq: external/trimmed/sample.fastq.gz
+reference: external/references/genome.fasta
+output_dir: external/results/sample_bowtie2_genome
+threads: 4
+mapq: 20
+sort_memory: 256M
+exclude_duplicates: false
+uncertain_cigar: reject
+seed: 0
+# With an existing index, add index: external/indexes/genome
+# Multiple chromosomes/plasmids belong in the same FASTA. No annotation required.

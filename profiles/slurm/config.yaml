@@ -1,0 +1,7 @@
+# Portable template only; use a separate external profile for site settings.
+executor: slurm
+jobs: 10
+latency-wait: 60
+default-resources:
+  mem_mb: 4000
+  runtime: 60

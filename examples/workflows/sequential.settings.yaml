@@ -1,0 +1,90 @@
+# Sequential RNA-reference -> genome mapping, with raw and RPM BigWigs.
+# Example settings, not a ready-to-run analysis: edit all /data paths and nulls.
+# Copy this file and sequential.samples.tsv into your own analysis folder.
+# Activate the capzyme environment, then use --route sequential.
+# Paths are relative to that analysis folder unless they begin with /.
+schema_version: 1
+samples: sequential.samples.tsv
+output_dir: results-sequential
+
+# Use an RNA reference and Bowtie2 index you have prepared already.
+# The FASTA can contain prepared ncRNA sequences and optional viral records.
+# File hashes are observed automatically. Optional expected hashes enforce earlier pins.
+reference:
+  mode: fixed
+  fasta: /data/references/rna/combined.fa
+  index_prefix: /data/references/rna/bowtie2/reference
+  index_format: bt2                 # Use bt2l for a large Bowtie2 index.
+
+# Raw FASTQs from the sample sheet are trimmed with Cutadapt first.
+preprocessing:
+  adapter: null                     # Required: adapter DNA sequence from protocol.
+  quality: 20                      # Ordinary 3′ quality-trimming threshold.
+  minimum_length: 15
+  # Extra 3′ G-tail trimming for two-color instruments, e.g. NextSeq/NovaSeq.
+  # For other chemistries, ordinary quality trimming should be used instead.
+  # null omits this treatment; numeric zero still enables it.
+  # Choose 20 for suitable two-color data; this neutral template uses ordinary trimming.
+  nextseq_trim: null
+
+# RNA-reference mapping uses Bowtie2.
+mapping:
+  norc: true                        # Map only to the orientation of each record.
+  preset: very-sensitive
+  seed: 0
+  threads: 4
+
+# Preserve the complete RNA-reference count matrix for tracks/statistics.
+counting:
+  mapq: 20
+  strand: both
+  exclude_duplicates: false
+  min_total_count: 0
+
+# Only RNA aligner-unmapped reads proceed to this HISAT2 genome step.
+# Prepare the genome FASTA/index separately, using compatible splice annotation.
+genome:
+  aligner: hisat2
+  reference: /data/references/genome/genome.fa
+  reference_sha256: null            # Optional genome FASTA checksum.
+  index_prefix: /data/references/genome/hisat2/reference
+  decoys: /data/references/genome/decoys.txt  # Exact excluded reference IDs, one/line.
+  no_decoys: false                  # If genuinely decoy-free: decoys: null, true here.
+  policy_files: []                  # Optional existing build/annotation receipts.
+  threads: 4
+  mem_mb: 16384                     # Scheduling request; adjust for your reference.
+  count_threads: 2
+  count_mem_mb: 8192
+  mapq: 20
+  exclude_duplicates: false
+  strand: both
+  seed: 0
+
+# Tracks are part of the workflow: no separate BigWig command is needed.
+# Each space has its own normalization; both strands share a sample's factor.
+bigwigs:
+  rna:
+    methods:
+      raw: {}
+      # RPM = site count * 1,000,000 / this sample's RNA-accepted read total.
+      # The workflow calculates the total; you do not need to enter it.
+      rpm: {}
+      # Optional: requires a separately installed R/DESeq2 environment.
+      # deseq2:
+      #   deseq2_type: ratio         # Or explicitly select poscounts; no fallback.
+      #   rscript: /path/to/r-environment/bin/Rscript
+    strands: both
+    mem_mb: 8192
+    # cohort: [A, B]                # Default: all sample-sheet IDs, in order.
+    # emit_samples: [A, B]          # Default: the normalization cohort.
+  genome:
+    methods:
+      raw: {}
+      # RPM = site count * 1,000,000 / this sample's genome-accepted read total.
+      # The total includes all accepted genome records and both strands.
+      rpm: {}
+      # deseq2:
+      #   deseq2_type: ratio
+      #   rscript: /path/to/r-environment/bin/Rscript
+    strands: both
+    mem_mb: 8192

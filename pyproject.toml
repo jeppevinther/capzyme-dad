@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "capzyme-dad"
+version = "0.1.0.dev2"
+description = "Single-nucleotide RNA 5-prime counting and browser tracks"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+dependencies = []
+
+[project.optional-dependencies]
+tracks = ["pyBigWig==0.3.26", "numpy>=2,<3"]
+settings = ["PyYAML>=6,<7"]
+workflow = ["Snakemake>=9.9,<10", "PyYAML>=6,<7"]
+
+[project.scripts]
+capzyme = "capzyme_cli:main"
+
+[tool.setuptools]
+packages = ["capzyme_cli", "capzyme_resources"]
+package-dir = {capzyme_resources = "."}
+include-package-data = false
+
+[tool.setuptools.package-data]
+capzyme_resources = ["capzyme.py", "toolbox.py", "source_snapshot.json", "workflow/Snakefile", "workflow/*.smk", "workflow/rules/*.smk", "workflow/scripts/*.py", "workflow/scripts/*.R", "workflow/envs/*.yaml", "R/deseq2_normalization.R", "legacy_scripts/merge_by_prefix_v2.py", "examples/synthetic/generate.py"]

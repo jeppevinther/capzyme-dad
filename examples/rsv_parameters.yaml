@@ -1,0 +1,20 @@
+# Parameter preset only: explicitly merge these blocks into a complete config.
+# No real sample names, experimental metadata, or internal paths are included.
+reference:
+  prefix_length: 30
+  drop_biotypes: [lincRNA, lncRNA, pseudogene, snRNA_pseudogene, snoRNA_pseudogene, miRNA_pseudogene, retained_intron]
+preprocessing:
+  adapter: AGATCGGAAGAGCACACGTCT
+  quality: 20
+  minimum_length: 15
+  nextseq_trim: 20
+mapping:
+  norc: true
+  preset: very-sensitive
+  seed: 0
+  threads: 4
+counting:
+  mapq: 20
+  strand: plus
+  exclude_duplicates: false
+  min_total_count: 10

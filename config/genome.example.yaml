@@ -1,0 +1,20 @@
+# Genome-only orchestration. Input FASTQs are already trimmed, single-end.
+schema_version: 1
+samples: null # TSV: sample_id, fastq; external files; preserve desired column order
+output_dir: null # External fresh results directory
+genome:
+  aligner: hisat2 # or bowtie2
+  index_prefix: null # Existing complete .ht2/.ht2l or .bt2/.bt2l family
+  reference: null # Matching external FASTA
+  reference_sha256: null # Optional lowercase checksum
+  decoys: null # Exact identifiers, one per line
+  no_decoys: false # Set true instead of decoys only when explicitly appropriate
+  policy_files: [] # E.g. index receipt and source splice/exon tables; DAG inputs
+  threads: 8 # Includes one helper slot; aligner/sort run sequentially
+  mem_mb: 32768
+  count_threads: 2
+  count_mem_mb: 8192
+  mapq: 20
+  exclude_duplicates: false
+  strand: both # Reference-relative + and -; separate from RNA counting.strand
+  seed: 0

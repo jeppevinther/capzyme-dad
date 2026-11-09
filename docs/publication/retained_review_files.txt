@@ -1,0 +1,6 @@
+Excluded from this public history; retained in the internal development archive:
+- Experiment-specific original scripts and full historical provenance.
+- Research-data inputs, results, sample metadata and private execution settings.
+- Institutional environment audits and historical milestone/run records.
+- Credentials, private logs, access receipts and server locations.
+- Generated wheels, environments, synthetic data and local preview screenshots.

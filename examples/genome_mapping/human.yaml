@@ -1,0 +1,21 @@
+# CLI argument bindings, not an implemented --config or Snakemake interface.
+tool: hisat2_genome.py
+operation: map
+# Only aligner-unmapped reads from the first reference space, not MAPQ rejects.
+fastq: external/results/ncrna_viral_stage/unmapped.fastq
+index: external/references/GRCh38_no_alt_plus_hs38d1/genome
+reference: external/references/GRCh38_no_alt_plus_hs38d1/genome.fasta
+# One exact verified reference ID per line; derive from the selected assembly.
+decoys: external/references/GRCh38_no_alt_plus_hs38d1/decoys.txt
+output_dir: external/results/sample_hisat2_genome
+threads: 4
+mapq: 20
+sort_memory: 256M
+exclude_duplicates: false
+uncertain_cigar: reject
+seed: 0
+# Index preparation is separate. Optional preparation bindings:
+# operation: prepare
+# gtf: external/annotations/compatible.gtf
+# Or splice_sites: external/annotations/splice_sites.tsv
+#    exons: external/annotations/exons.tsv

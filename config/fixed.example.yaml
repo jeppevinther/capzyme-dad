@@ -1,0 +1,25 @@
+# Fixed-reference template. All paths resolve against the Snakemake working directory.
+# Fill these external paths before running. No data download is performed.
+schema_version: 1
+samples: null
+output_dir: null
+reference:
+  mode: fixed
+  fasta: null
+  index_prefix: null
+  index_format: bt2  # bt2 (historical small index) or bt2l
+preprocessing:
+  adapter: null
+  quality: null
+  minimum_length: null
+  nextseq_trim: null  # Off; use a numeric threshold for suitable two-color data.
+mapping:
+  norc: true
+  preset: very-sensitive
+  seed: 0
+  threads: 4
+counting:
+  mapq: 20
+  strand: both
+  exclude_duplicates: false
+  min_total_count: 0  # 0: raw only; >0: also emit a thresholded matrix

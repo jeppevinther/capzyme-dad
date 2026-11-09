@@ -1,0 +1,2 @@
+sample_id	read1	read2	condition	replicate	batch	treatment
+example_A	reads/example_A_R1.fastq.gz		condition_A	1	batch_1	protocol_defined

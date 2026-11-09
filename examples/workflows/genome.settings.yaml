@@ -1,0 +1,47 @@
+# Direct Bowtie2 genome mapping, with raw and RPM BigWigs.
+# Suitable as a starting point for an unspliced genome, e.g. a bacterial genome.
+# This CURRENT genome-only route expects ALREADY TRIMMED FASTQs.
+# Use capzyme trim first when needed; this settings file does not run trimming.
+# Copy this file and genome.samples.tsv into your own analysis folder.
+# Edit all /data paths. Activate capzyme and use --route genome.
+# Paths are relative to the analysis folder unless they begin with /.
+schema_version: 1
+samples: genome.samples.tsv
+output_dir: results-genome
+
+# Prepare the genome FASTA and Bowtie2 index separately before running.
+genome:
+  aligner: bowtie2
+  reference: /data/references/bacterium/genome.fa
+  reference_sha256: null            # Optional genome FASTA checksum.
+  index_prefix: /data/references/bacterium/bowtie2/reference
+  decoys: null
+  no_decoys: true                   # Explicit assumption for this example.
+  # If your reference contains decoys, set no_decoys: false and provide
+  # decoys: /data/references/bacterium/decoys.txt with exact IDs, one per line.
+  policy_files: []                  # Optional existing build/reference receipts.
+  threads: 4
+  mem_mb: 8192                      # Scheduling request; adjust for your reference.
+  count_threads: 2
+  count_mem_mb: 8192
+  mapq: 20
+  exclude_duplicates: false
+  strand: both
+  seed: 0
+
+# Tracks are generated automatically after the unthresholded genome counts.
+bigwigs:
+  genome:
+    methods:
+      raw: {}
+      # RPM = site count * 1,000,000 / this sample's genome-accepted read total.
+      # The workflow calculates it from all accepted records on both strands.
+      rpm: {}
+      # Optional: requires a separately installed R/DESeq2 environment.
+      # deseq2:
+      #   deseq2_type: ratio         # Or explicitly select poscounts; no fallback.
+      #   rscript: /path/to/r-environment/bin/Rscript
+    strands: both
+    mem_mb: 8192
+    # cohort: [A, B]                # Default: all sample-sheet IDs, in order.
+    # emit_samples: [A, B]          # Default: the normalization cohort.
