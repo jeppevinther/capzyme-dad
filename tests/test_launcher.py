@@ -91,7 +91,19 @@ class LauncherTests(unittest.TestCase):
             self.assertNotIn('rule '+name+':',preview.stdout+preview.stderr)
         self.call('run','--config',cfg)
         for path,expected in outputs.items():
+            if 'report' in path.relative_to(demo/'run').parts or path.name=='report.log':
+                continue  # Final report changes with track requests; scientific outputs stay fixed.
             self.assertEqual((hashlib.sha256(path.read_bytes()).hexdigest(),path.stat().st_mtime_ns),expected)
+        report=json.loads((demo/'run/report/report_status.json').read_text())
+        self.assertEqual(report['status'],'complete_from_records')
+        # Deleting the report schedules reporting only, with no dependency cycle.
+        (demo/'run/report/report.html').unlink()
+        dry=self.call('preview','--config',cfg)
+        self.assertIn('rule run_report:',dry.stdout+dry.stderr)
+        for rule in ['trim_fastq','map_filter_sort','count_5ends','bigwig_rna_raw','bigwig_rna_rpm']:
+            self.assertNotIn('rule '+rule+':',dry.stdout+dry.stderr)
+        self.call('run','--config',cfg)
+        self.assertEqual(json.loads((demo/'run/report/analysis_context.json').read_text())['route'],'rna')
         self.assertTrue((demo/'run/bigwigs/rna/rpm/tracks/A.plus.bw').is_file())
         # The adapter's other routes must reach the existing validated entry points.
         import hashlib

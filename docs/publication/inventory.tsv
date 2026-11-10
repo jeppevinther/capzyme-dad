@@ -43,6 +43,8 @@ docs/reference_strategy.md	yes	add	reviewed portable source or public documentat
 docs/reference_verification.md	yes	add	reviewed portable source or public documentation
 docs/resources.md	yes	add	reviewed portable source or public documentation
 docs/results_and_troubleshooting.md	yes	add	reviewed portable source or public documentation
+docs/run_report.md	yes	not in initial export	reviewed automated reporting source, tests or public documentation
+docs/run_report_validation.md	yes	not in initial export	reviewed automated reporting source, tests or public documentation
 docs/sequential_mapping.md	yes	add	reviewed portable source or public documentation
 docs/software_and_citations.md	yes	add	reviewed portable source or public documentation
 docs/tool_settings.md	yes	add	reviewed portable source or public documentation
@@ -100,6 +102,7 @@ tests/test_handoff_integrity.py	yes	add	reviewed portable source or public docum
 tests/test_installed.py	yes	add	reviewed portable source or public documentation
 tests/test_launcher.py	yes	add	reviewed portable source or public documentation
 tests/test_pilot.py	yes	add	reviewed portable source or public documentation
+tests/test_report.py	yes	not in initial export	reviewed automated reporting source, tests or public documentation
 tests/test_resource_guard.py	yes	add	reviewed portable source or public documentation
 tests/test_scaffold.py	yes	add	reviewed portable source or public documentation
 tests/test_sequential.py	yes	add	reviewed portable source or public documentation
@@ -130,6 +133,7 @@ workflow/rules/mapping.smk	yes	add	reviewed portable source or public documentat
 workflow/rules/preprocessing.smk	yes	add	reviewed portable source or public documentation
 workflow/rules/qc.smk	yes	add	reviewed portable source or public documentation
 workflow/rules/references.smk	yes	add	reviewed portable source or public documentation
+workflow/rules/report.smk	yes	not in initial export	reviewed automated reporting source, tests or public documentation
 workflow/rules/tracks.smk	yes	add	reviewed portable source or public documentation
 workflow/scripts/README.md	yes	add	reviewed portable source or public documentation
 workflow/scripts/bam_configuration.py	yes	add	reviewed portable source or public documentation
@@ -151,8 +155,10 @@ workflow/scripts/genome_step.py	yes	add	reviewed portable source or public docum
 workflow/scripts/hisat2_genome.py	yes	add	reviewed portable source or public documentation
 workflow/scripts/pilot_validation.py	yes	add	reviewed portable source or public documentation
 workflow/scripts/reference_hashes.py	yes	add	reviewed portable source or public documentation
+workflow/scripts/report_step.py	yes	not in initial export	reviewed automated reporting source, tests or public documentation
 workflow/scripts/resource_guard.py	yes	add	reviewed portable source or public documentation
 workflow/scripts/rna_handoff.py	yes	add	reviewed portable source or public documentation
+workflow/scripts/run_report.py	yes	not in initial export	reviewed automated reporting source, tests or public documentation
 workflow/scripts/run_step.py	yes	add	reviewed portable source or public documentation
 workflow/scripts/sequential.py	yes	add	reviewed portable source or public documentation
 workflow/scripts/tool_settings.py	yes	add	reviewed portable source or public documentation

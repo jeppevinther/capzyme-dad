@@ -48,7 +48,7 @@ class WorkflowBigwigTests(unittest.TestCase):
     def test_raw_rpm_addition_no_upstream_rerun_missing_track_and_failure_recovery(self):
         self.workflow()
         root=self.p/'results'
-        upstream={p:(sha256(p),p.stat().st_mtime_ns) for p in root.rglob('*') if p.is_file()}
+        upstream={p:(sha256(p),p.stat().st_mtime_ns) for p in root.rglob('*') if p.is_file() and 'report' not in p.relative_to(root).parts and p.name!='report.log'}
         self.block({'raw':{},'rpm':{}})
         dry=self.workflow(True)
         for name in ('prepare_existing_bam','count_existing_bams','threshold_existing_counts'):

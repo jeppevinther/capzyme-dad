@@ -11,7 +11,9 @@ The public repository is [jeppevinther/capzyme-dad](https://github.com/jeppevint
 It starts from a reviewed portable source export with a fresh Git history.
 The internal development repository, research data, credentials, private logs
 and withheld historical records were not copied into that history.
-The [public source inventory](publication/public_files.txt) lists 159 files.
+The initial export contained 159 files. The
+[public source inventory](publication/public_files.txt) tracks the current tree,
+including additions made after that initial publication.
 The owner confirmed redistribution of the three original portable legacy scripts
 under the project MIT license; their hashes and author notices are unchanged.
 See [licensing](publication/license_review.md).

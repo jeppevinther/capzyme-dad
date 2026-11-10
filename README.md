@@ -431,6 +431,24 @@ capzyme workflow run --config /tmp/capzyme-demo/config.yaml --cores 4 --memory-m
 
 Choose a new or empty directory. This artificial RNA-only example is separate from the two editable real-analysis templates above. See the [tutorial](docs/getting_started.md) for its expected outputs and the [workflow guide](docs/usage.md) for other routes. Optional standalone settings are described [separately](docs/tool_settings.md).
 
+## Run report
+
+Every workflow route finishes with a compact `report/report.html` and
+`report/sample_summary.tsv` inside its results directory. Regenerate from existing
+records without rerunning analysis:
+
+```bash
+capzyme report --analysis-dir /data/my-analysis/results
+# Optional: write a separate review copy.
+capzyme report --analysis-dir /data/my-analysis/results --output-dir /data/review/report
+```
+
+The report distinguishes fresh small-record checks from saved analysis checks,
+shows missing/inconsistent stages, and keeps RNA/genome normalization separate.
+It does not freshly scan sequencing files or certify Snakemake's subsequent exit.
+See [report scope, statuses and TSV columns](docs/run_report.md). MultiQC remains
+an optional separate tool for recognised native logs.
+
 ## **Help and citations**
 
 - [Individual tool guides](docs/toolbox.md)

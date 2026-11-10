@@ -53,3 +53,12 @@ MultiQC orchestration and reusable differential-expression analysis remain defer
 See the [complete workflow examples](../examples/workflows/README.md) and
 [current finalization evidence](finalization_report.md). Historical experiment
 reports are retained separately for owner/publication review, not installation instructions.
+
+## Record-only reporting
+
+`run_report.py` is the shared, standard-library reporting engine behind
+`capzyme report`. `report_step.py` adapts it to the final `run_report` Snakemake
+rule, which depends on terminal analysis outputs and has no upstream consumers.
+It inspects saved records and headers, not sequencing bodies or scientific
+algorithms. The saved request context is not a workflow-exit receipt. See
+[run reports](run_report.md) for statuses and older/partial-run limitations.

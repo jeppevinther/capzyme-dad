@@ -7,8 +7,8 @@ are preserved; owner redistribution confirmation is recorded in
 [legacy licensing](license_review.md).
 
 - [Public source files](public_files.txt): exact public source-tree inventory.
-- [Initial staging list](proposed_staging.txt): the same reviewed public files,
-  rather than the internal repository's earlier incremental staging proposal.
+- [Initial staging list](proposed_staging.txt): the historical reviewed list for
+  the first public export; later additions appear in the current source inventory.
 - [Inventory](inventory.tsv): source-tree file disposition.
 - [Excluded material](retained_review_files.txt): categories kept in the internal
   development archive; private filenames, locations and logs are not enumerated.

@@ -24,9 +24,13 @@ CODE = [str(REPO/'workflow/scripts'/name) for name in (
 wildcard_constraints:
     sample='[A-Za-z0-9][A-Za-z0-9_.-]*'
 
+ANALYSIS_OUTPUTS = [*TRACK_OUTPUTS, OUT+'/counts/genome.5ends.raw.tsv', OUT+'/provenance/genome.json']
+REPORT_ROUTE = 'genome'
 rule all:
-    input: TRACK_OUTPUTS, OUT+'/counts/genome.5ends.raw.tsv', OUT+'/provenance/genome.json'
+    input: ANALYSIS_OUTPUTS, OUT+'/report/report.html', OUT+'/report/sample_summary.tsv', OUT+'/report/report_status.json', OUT+'/report/analysis_context.json'
 
 include: 'rules/genome.smk'
 
 include: 'rules/tracks.smk'
+
+include: 'rules/report.smk'

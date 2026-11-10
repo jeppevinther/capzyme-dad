@@ -21,10 +21,11 @@ CODE = [str(REPO/'workflow/scripts'/name) for name in ('bam_count.py','bam_confi
 wildcard_constraints:
     sample='[A-Za-z0-9][A-Za-z0-9_.-]*'
 
+ANALYSIS_OUTPUTS = [FINAL, OUT+'/provenance/run.json', *TRACK_OUTPUTS,
+    *([OUT+'/comparison/exact.json'] if S['comparison'] else [])]
+REPORT_ROUTE = 'bam'
 rule all:
-    input:
-        FINAL, OUT + '/provenance/run.json', TRACK_OUTPUTS,
-        ([OUT + '/comparison/exact.json'] if S['comparison'] else [])
+    input: ANALYSIS_OUTPUTS, OUT+'/report/report.html', OUT+'/report/sample_summary.tsv', OUT+'/report/report_status.json', OUT+'/report/analysis_context.json'
 
 rule reference_sizes:
     input: fasta=S['fasta'], code=CODE
@@ -90,3 +91,5 @@ if S['comparison']:
         script: 'scripts/bam_step.py'
 
 include: 'rules/tracks.smk'
+
+include: 'rules/report.smk'

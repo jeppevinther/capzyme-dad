@@ -11,12 +11,15 @@ def main():
     else:
         from importlib.util import find_spec
         root = Path(next(iter(find_spec('capzyme_resources').submodule_search_locations)))
-    if len(sys.argv) > 1 and sys.argv[1] == 'workflow':
+    if len(sys.argv) > 1 and sys.argv[1] == 'report':
+        sys.argv = [str(root / 'workflow/scripts/run_report.py'), *sys.argv[2:]]
+        script = root / 'workflow/scripts/run_report.py'
+    elif len(sys.argv) > 1 and sys.argv[1] == 'workflow':
         sys.argv = [str(root / 'capzyme.py'), *sys.argv[2:]]
         script = root / 'capzyme.py'
     elif len(sys.argv) == 1 or sys.argv[1] in ('-h', '--help'):
         print('CapZyme-DAD: Data Analysis and Display for CapZyme-seq\n\n'
-              'Commands: count, bigwig, trim, rna-align, genome-align, collapse, index-record\n'
+              'Commands: count, bigwig, trim, rna-align, genome-align, collapse, index-record, report\n'
               'Optional coordinator: workflow {doctor,example,check,preview,run}\n'
               'Use capzyme COMMAND --help for inputs, options and outputs.')
         return

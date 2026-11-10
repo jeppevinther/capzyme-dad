@@ -26,7 +26,7 @@ class ScaffoldTests(unittest.TestCase):
     def test_portable_runtime_templates(self):
         for folder in ("workflow", "config", "profiles", "R"):
             for path in (ROOT / folder).rglob("*"):
-                if path.is_file():
+                if path.is_file() and "__pycache__" not in path.parts and path.suffix not in (".pyc", ".pyo"):
                     text = path.read_text().lower()
                     for forbidden in ("/projects/", "/users/", "unicph.domain", "scarball"):
                         with self.subTest(path=path, forbidden=forbidden):

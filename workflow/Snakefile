@@ -40,13 +40,13 @@ CODE = [str(REPO/'workflow/scripts'/name) for name in (
 wildcard_constraints:
     sample="[A-Za-z0-9][A-Za-z0-9_.-]*"
 
+ANALYSIS_OUTPUTS = [RAW, *TRACK_OUTPUTS,
+    *([FILTERED] if SETTINGS['minimum'] > 0 else []), OUT+'/provenance/run.json',
+    *([OUT+'/counts/genome.5ends.raw.tsv', OUT+'/provenance/genome.json'] +
+      expand(OUT+'/qc/{sample}.sequential.json', sample=SAMPLES) if GENOME else [])]
+REPORT_ROUTE = 'sequential' if GENOME else 'rna'
 rule all:
-    input:
-        RAW, TRACK_OUTPUTS,
-        ([FILTERED] if SETTINGS["minimum"] > 0 else []),
-        OUT + "/provenance/run.json",
-        ([OUT + '/counts/genome.5ends.raw.tsv', OUT + '/provenance/genome.json'] +
-         expand(OUT + '/qc/{sample}.sequential.json', sample=SAMPLES) if GENOME else [])
+    input: ANALYSIS_OUTPUTS, OUT+'/report/report.html', OUT+'/report/sample_summary.tsv', OUT+'/report/report_status.json', OUT+'/report/analysis_context.json'
 
 if FIXED:
     include: "rules/fixed_references.smk"
@@ -61,3 +61,5 @@ if GENOME:
 # Future-stage files remain preserved but are not included in this milestone.
 
 include: 'rules/tracks.smk'
+
+include: 'rules/report.smk'

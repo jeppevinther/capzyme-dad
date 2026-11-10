@@ -50,3 +50,9 @@ Optional [workflow BigWigs](workflow_bigwigs.md) reuse unthresholded counts.
 
 Credit upstream software using [software and citations](software_and_citations.md).
 Statistical analysis starts from integer counts, never BigWig values.
+
+## Run reporting
+
+`capzyme report --analysis-dir DIR` independently regenerates compact HTML and
+TSV summaries from existing records. No scientific stage is rerun. See
+[report inputs, outputs, verification scope and examples](run_report.md).

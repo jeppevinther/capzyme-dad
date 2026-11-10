@@ -42,6 +42,8 @@ docs/reference_strategy.md
 docs/reference_verification.md
 docs/resources.md
 docs/results_and_troubleshooting.md
+docs/run_report.md
+docs/run_report_validation.md
 docs/sequential_mapping.md
 docs/software_and_citations.md
 docs/tool_settings.md
@@ -99,6 +101,7 @@ tests/test_handoff_integrity.py
 tests/test_installed.py
 tests/test_launcher.py
 tests/test_pilot.py
+tests/test_report.py
 tests/test_resource_guard.py
 tests/test_scaffold.py
 tests/test_sequential.py
@@ -129,6 +132,7 @@ workflow/rules/mapping.smk
 workflow/rules/preprocessing.smk
 workflow/rules/qc.smk
 workflow/rules/references.smk
+workflow/rules/report.smk
 workflow/rules/tracks.smk
 workflow/scripts/README.md
 workflow/scripts/bam_configuration.py
@@ -150,8 +154,10 @@ workflow/scripts/genome_step.py
 workflow/scripts/hisat2_genome.py
 workflow/scripts/pilot_validation.py
 workflow/scripts/reference_hashes.py
+workflow/scripts/report_step.py
 workflow/scripts/resource_guard.py
 workflow/scripts/rna_handoff.py
+workflow/scripts/run_report.py
 workflow/scripts/run_step.py
 workflow/scripts/sequential.py
 workflow/scripts/tool_settings.py
